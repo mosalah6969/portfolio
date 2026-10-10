@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Mohamed Salah Metwally, Junior SOC Analyst: SIEM, incident response, Wazuh, FortiSIEM.">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Mohamed Salah Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column case file. Name and headline up top, a diagram-led featured lab, then a dated activity log that reads like a SIEM event list. */
+:root {
+  --bg: #edf0f3;
+  --surface: #f8f9fb;
+  --fg: #121c28;
+  --muted: #536171;
+  --line: #cbd3dc;
+  --accent: #b83a1a;
+  --accent-soft: #f6dcd3;
+  --blue: #1d4f7c;
+  --blue-soft: #dce8f3;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d131a;
+    --surface: #141c25;
+    --fg: #e6ecf2;
+    --muted: #93a1b1;
+    --line: #263341;
+    --accent: #ff7a57;
+    --accent-soft: #3a2018;
+    --blue: #86b6e6;
+    --blue-soft: #172a3c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d131a;
+  --surface: #141c25;
+  --fg: #e6ecf2;
+  --muted: #93a1b1;
+  --line: #263341;
+  --accent: #ff7a57;
+  --accent-soft: #3a2018;
+  --blue: #86b6e6;
+  --blue-soft: #172a3c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-inline: 1rem;
+  padding-block: 0 4rem;
+}
+a { color: var(--blue); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 68rem; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+.mono { font-family: var(--font-mono); }
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* nav */
+.nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  margin-inline: -1rem;
+  padding-inline: 1rem;
+}
+.nav .wrap { display: flex; align-items: center; gap: 1.25rem; padding-block: 0.7rem; }
+.nav .mark { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.02em; white-space: nowrap; }
+.nav ul { display: flex; gap: 1.1rem; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.nav ul::-webkit-scrollbar { display: none; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 0.875rem; white-space: nowrap; }
+.nav a:hover { color: var(--fg); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1fr; gap: 2rem; padding-block: 3.5rem 2.5rem; }
+.hero-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.avatar {
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  background: var(--fg); color: var(--bg);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.15rem;
+  flex: none;
+}
+.role { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.loc { font-size: 0.875rem; color: var(--muted); }
+h1 { font-size: clamp(2.5rem, 8vw, 5.25rem); font-weight: 800; letter-spacing: -0.02em; }
+h1 span { color: var(--accent); }
+.headline { margin-top: 1.25rem; font-size: 1.125rem; max-width: 40rem; color: var(--fg); }
+.about { margin-top: 1rem; max-width: 40rem; color: var(--muted); }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+.btn {
+  font: 500 0.9375rem var(--font-body);
+  padding: 0.65rem 1.1rem; border-radius: 4px;
+  border: 1px solid var(--fg); background: var(--fg); color: var(--bg);
+  text-decoration: none; cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--fg); }
+.btn:hover { border-color: var(--accent); }
+
+.highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0; border-block: 1px solid var(--line); }
+.hl { padding: 1.1rem 1rem 1.1rem 0; display: grid; gap: 0.25rem; }
+.hl + .hl { padding-left: 1rem; border-left: 1px solid var(--line); }
+.hl b { font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.hl span { font-size: 0.875rem; color: var(--muted); }
+@media (max-width: 600px) {
+  .hl, .hl + .hl { padding: 0.9rem 0; border-left: 0; }
+  .hl + .hl { border-top: 1px solid var(--line); }
+}
+
+/* sections */
+section { padding-block: 3.5rem 0; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; margin-bottom: 1.75rem; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.25rem); font-weight: 800; letter-spacing: -0.01em; }
+.sec-head p { color: var(--muted); max-width: 32rem; font-size: 0.9375rem; }
+
+/* featured project */
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.5rem; display: grid; gap: 1.5rem; }
+.feature h3 { font-size: 1.5rem; font-weight: 700; }
+.feature .meta { display: flex; flex-wrap: wrap; gap: 0.4rem 0.6rem; margin-top: 0.6rem; }
+.chip { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 3px; background: var(--blue-soft); color: var(--blue); }
+.chip.alert { background: var(--accent-soft); color: var(--accent); }
+.feature-body { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+@media (min-width: 52rem) { .feature-body { grid-template-columns: 1fr 1.25fr; align-items: start; } }
+.feature ul, .card ul { margin: 0.75rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.45rem; }
+.feature li::marker, .card li::marker { color: var(--accent); }
+.diagram { min-width: 0; overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); padding: 0.5rem; }
+.diagram svg { display: block; width: 100%; min-width: 30rem; height: auto; }
+.diagram figcaption { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--muted); padding: 0.4rem 0.4rem 0.2rem; letter-spacing: 0.04em; }
+.dg-box { fill: var(--surface); stroke: var(--line); stroke-width: 1.2; }
+.dg-core { fill: var(--blue-soft); stroke: var(--blue); stroke-width: 1.4; }
+.dg-alert { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+.dg-t { font-family: var(--font-body); font-size: 13px; font-weight: 600; fill: var(--fg); }
+.dg-s { font-family: var(--font-mono); font-size: 10.5px; fill: var(--muted); }
+.dg-line { stroke: var(--muted); stroke-width: 1.3; fill: none; }
+.dg-dash { stroke: var(--accent); stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+.dg-ah { fill: var(--muted); }
+.dg-ah-a { fill: var(--accent); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+.card { min-width: 0; border-top: 2px solid var(--fg); padding-top: 1rem; }
+.card h3 { font-size: 1.2rem; font-weight: 700; }
+.card .when { margin-top: 0.3rem; }
+.card p.lead { margin-top: 0.6rem; color: var(--muted); }
+.card .meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.skill { padding: 1.1rem 1rem 1.25rem 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.skill ul { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.skill li { font-size: 0.875rem; padding: 0.2rem 0.6rem; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); }
+
+/* services */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; }
+.service { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.25rem; min-width: 0; }
+.service h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.service p { color: var(--muted); font-size: 0.9375rem; }
+
+/* activity log */
+.log { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.log-row { display: grid; grid-template-columns: 7.5rem 5.5rem 1fr; gap: 0.25rem 1rem; padding: 0.9rem 1rem; align-items: baseline; }
+.log-row + .log-row { border-top: 1px solid var(--line); }
+.log-row .t { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tag { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; padding: 0.1rem 0.4rem; border-radius: 3px; width: max-content; background: var(--blue-soft); color: var(--blue); }
+.tag.win { background: var(--accent-soft); color: var(--accent); }
+.log-row b { font-weight: 600; }
+.log-row .d { color: var(--muted); font-size: 0.9375rem; display: block; }
+@media (max-width: 40rem) {
+  .log-row { grid-template-columns: 1fr; }
+}
+
+/* certs */
+.certs { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem; }
+.cert { border-left: 3px solid var(--blue); padding: 0.2rem 0 0.2rem 1rem; min-width: 0; }
+.cert b { display: block; font-weight: 600; }
+.cert span { display: block; color: var(--muted); font-size: 0.9rem; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2rem; }
+.two > div { min-width: 0; }
+.two h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+.two p + p { margin-top: 0.4rem; }
+.muted { color: var(--muted); }
+
+/* contact */
+.contact { background: var(--fg); color: var(--bg); border-radius: 6px; padding: 2rem 1.5rem; display: grid; gap: 1.25rem; }
+.contact h2 { color: var(--bg); }
+.contact p { max-width: 36rem; opacity: 0.85; }
+.mail-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.mail { font-family: var(--font-mono); font-size: 1.05rem; overflow-wrap: anywhere; user-select: all; }
+.contact .btn { background: var(--bg); color: var(--fg); border-color: var(--bg); }
+.status { font-size: 0.875rem; min-height: 1.3em; }
+footer { margin-top: 2.5rem; font-size: 0.8125rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+</head>
+<body>
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <span class="mark">MS</span>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#log">Activity log</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="hero-top">
+        <div class="avatar" aria-hidden="true">MS</div>
+        <div>
+          <div class="role">Junior SOC Analyst</div>
+          <div class="loc">Giza, Egypt</div>
+        </div>
+      </div>
+      <h1>Mohamed Salah <span>Metwally</span></h1>
+      <p class="headline">SIEM monitoring and incident response, practiced on Wazuh, FortiSIEM and FortiAnalyzer, and on TryHackMe and CyberDefenders labs.</p>
+      <p class="about">I investigate alerts, correlate events across Windows and Linux logs, and tune detection rules to cut false positives. I care more about understanding how a real attack unfolds than about finishing a lab, and I work well in a team.</p>
+      <div class="cta">
+        <a class="btn" href="#projects">See my projects</a>
+        <a class="btn ghost" href="#contact">Contact me</a>
+      </div>
+    </div>
+    <div class="highlights">
+      <div class="hl"><b>1st place</b><span>Cybersecurity simulation project at GUPCO</span></div>
+      <div class="hl"><b>150 h</b><span>Cyber Security Diploma, Instant Software Solutions</span></div>
+      <div class="hl"><b>90%</b><span>Final grade, Web Penetration Testing, Orange Digital Center</span></div>
+    </div>
+  </header>
+
+  <section id="projects">
+    <div class="sec-head">
+      <h2>Projects</h2>
+      <p>Labs and simulations where I detected, analyzed and responded to attacks.</p>
+    </div>
+
+    <article class="feature">
+      <div>
+        <h3>Incident Response and SIEM Lab with Wazuh</h3>
+        <div class="meta">
+          <span class="chip">Wazuh</span><span class="chip">VirusTotal</span><span class="chip">Windows</span><span class="chip">Linux</span><span class="chip alert">Active Response</span>
+        </div>
+      </div>
+      <div class="feature-body">
+        <div>
+          <p class="muted">A security monitoring lab built to show how a SOC detects and responds to threats in a simulated environment.</p>
+          <ul>
+            <li>Centralized log analysis across Windows and Linux endpoints.</li>
+            <li>File integrity monitoring to catch unexpected changes.</li>
+            <li>Malware detection by integrating VirusTotal for threat analysis.</li>
+            <li>Ran attack simulations, then detected and mitigated them.</li>
+            <li>Automated a response that blocks brute-force attempts and suspicious activity.</li>
+          </ul>
+        </div>
+        <figure class="diagram" style="margin:0">
+          <svg viewBox="0 0 640 300" role="img" aria-label="Lab architecture: Windows and Linux agents send logs to the Wazuh server, which feeds the dashboard, checks hashes with VirusTotal and triggers active response that blocks the attacker on the endpoint.">
+            <defs>
+              <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-ah" d="M0,0 L8,4 L0,8z"/></marker>
+              <marker id="aha" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-ah-a" d="M0,0 L8,4 L0,8z"/></marker>
+            </defs>
+            <rect class="dg-box" x="16" y="36" width="150" height="58" rx="4"/>
+            <text class="dg-t" x="30" y="60">Windows endpoint</text>
+            <text class="dg-s" x="30" y="78">Wazuh agent</text>
+            <rect class="dg-box" x="16" y="130" width="150" height="58" rx="4"/>
+            <text class="dg-t" x="30" y="154">Linux endpoint</text>
+            <text class="dg-s" x="30" y="172">Wazuh agent</text>
+
+            <rect class="dg-core" x="232" y="64" width="160" height="124" rx="4"/>
+            <text class="dg-t" x="248" y="100">Wazuh server</text>
+            <text class="dg-s" x="248" y="122">decoders, rules</text>
+            <text class="dg-s" x="248" y="138">alert correlation</text>
+
+            <rect class="dg-box" x="468" y="24" width="156" height="58" rx="4"/>
+            <text class="dg-t" x="482" y="48">Dashboard</text>
+            <text class="dg-s" x="482" y="66">alerts, FIM events</text>
+            <rect class="dg-box" x="468" y="104" width="156" height="58" rx="4"/>
+            <text class="dg-t" x="482" y="128">VirusTotal</text>
+            <text class="dg-s" x="482" y="146">file hash lookup</text>
+            <rect class="dg-alert" x="468" y="184" width="156" height="58" rx="4"/>
+            <text class="dg-t" x="482" y="208">Active response</text>
+            <text class="dg-s" x="482" y="226">block brute-force source</text>
+
+            <path class="dg-line" d="M166,65 L232,100" marker-end="url(#ah)"/>
+            <path class="dg-line" d="M166,159 L232,150" marker-end="url(#ah)"/>
+            <text class="dg-s" x="168" y="122" >logs</text>
+            <path class="dg-line" d="M392,86 L468,54" marker-end="url(#ah)"/>
+            <path class="dg-line" d="M392,126 L468,133" marker-end="url(#ah)"/>
+            <path class="dg-line" d="M392,168 L468,210" marker-end="url(#ah)"/>
+            <path class="dg-dash" d="M546,242 L546,278 L91,278 L91,190" marker-end="url(#aha)"/>
+            <text class="dg-s" x="190" y="270">block rule pushed back to the agent</text>
+          </svg>
+          <figcaption>LAB ARCHITECTURE</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Cybersecurity Simulation at GUPCO</h3>
+        <div class="label when">Gulf of Suez Petroleum Company, 2025</div>
+        <p class="lead">A team project covering attack scenarios, detection and mitigation, done during my IT department training. Our team took first place.</p>
+        <div class="meta"><span class="chip alert">1st place</span><span class="chip">Detection</span><span class="chip">Mitigation</span></div>
+      </article>
+      <article class="card">
+        <h3>SOC Training Lab: FortiSIEM and FortiAnalyzer</h3>
+        <div class="label when">NTI, 2026</div>
+        <p class="lead">Worked through the incident handling lifecycle from detection to remediation.</p>
+        <ul>
+          <li>Log analysis, event handlers and threat hunting.</li>
+          <li>Real-time and historical searches in FortiSIEM.</li>
+          <li>Custom rules, reports, dashboards and automated playbooks.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Enterprise Network Labs</h3>
+        <div class="label when">NTI and Huawei, 2026</div>
+        <p class="lead">Built and configured network topologies in Huawei eNSP, working through routing and switching, IP addressing, subnetting and troubleshooting.</p>
+        <div class="meta"><span class="chip">eNSP</span><span class="chip">TCP/IP</span><span class="chip">Routing</span><span class="chip">Switching</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <h2>Skills</h2>
+      <p>Detection and investigation first, with the networking and Windows knowledge behind it.</p>
+    </div>
+    <div class="skills">
+      <div class="skill"><div class="label">SIEM and logs</div><ul><li>Splunk</li><li>Wazuh</li><li>FortiSIEM</li><li>FortiAnalyzer</li><li>FortiOS</li></ul></div>
+      <div class="skill"><div class="label">SOC practice</div><ul><li>Alert triage</li><li>Event correlation</li><li>Threat hunting</li><li>Incident response</li><li>Detection rules</li></ul></div>
+      <div class="skill"><div class="label">Frameworks</div><ul><li>MITRE ATT&amp;CK</li><li>Cyber Kill Chain</li><li>OWASP</li></ul></div>
+      <div class="skill"><div class="label">Tools</div><ul><li>Wireshark</li><li>Nmap</li><li>Burp Suite</li><li>Metasploit</li><li>VirusTotal</li><li>VMware Workstation Pro</li></ul></div>
+      <div class="skill"><div class="label">Networking</div><ul><li>TCP/IP</li><li>DNS</li><li>DHCP</li><li>Routing and switching</li><li>Firewalls</li><li>IDS/IPS</li></ul></div>
+      <div class="skill"><div class="label">Windows security</div><ul><li>Active Directory</li><li>Domain Controller</li><li>NTLM</li><li>Kerberos</li></ul></div>
+      <div class="skill"><div class="label">Programming</div><ul><li>Python</li><li>SQL</li><li>C++</li><li>Java</li></ul></div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="sec-head">
+      <h2>Services</h2>
+      <p>What I can take on for a team or a client.</p>
+    </div>
+    <div class="services">
+      <div class="service"><h3>Security monitoring</h3><p>Watch SIEM alerts, separate real incidents from noise, and escalate with the evidence a responder needs.</p></div>
+      <div class="service"><h3>SIEM lab setup</h3><p>Build a working Wazuh or FortiSIEM environment with agents, dashboards and detection rules for training or testing.</p></div>
+      <div class="service"><h3>Log analysis and threat hunting</h3><p>Search Windows, Linux and network logs for suspicious behavior and map findings to MITRE ATT&amp;CK.</p></div>
+      <div class="service"><h3>Incident investigation reports</h3><p>Write clear timelines of what happened, which systems were affected and how to contain and fix it.</p></div>
+    </div>
+  </section>
+
+  <section id="log">
+    <div class="sec-head">
+      <h2>Activity log</h2>
+      <p>Training, labs and certifications in date order, newest first.</p>
+    </div>
+    <div class="log">
+      <div class="log-row"><span class="t">07/2026 - 09/2026</span><span class="tag">TRAINING</span><span><b>SOC Training: FortiAnalyzer and FortiSIEM, NTI</b><span class="d">Log analysis, threat hunting, custom rules, dashboards, playbooks and the full incident handling lifecycle. Certificate: SOC Analyst, 60 technical hours and 12 freelance hours.</span></span></div>
+      <div class="log-row"><span class="t">06/2026 - 08/2026</span><span class="tag">TRAINING</span><span><b>Data Communication, NTI and Huawei</b><span class="d">TCP/IP, routing and switching, subnetting and network topologies in eNSP.</span></span></div>
+      <div class="log-row"><span class="t">04/2026 - 07/2026</span><span class="tag">COURSE</span><span><b>eCIRv2, NetRiders Academy</b><span class="d">Incident responder track.</span></span></div>
+      <div class="log-row"><span class="t">02/2026 - 04/2026</span><span class="tag">CERT</span><span><b>eCIR Prep, NetRiders Academy</b><span class="d">Correlating logs, filtering noise and following an attacker step by step during an incident.</span></span></div>
+      <div class="log-row"><span class="t">02/2026</span><span class="tag">CERT</span><span><b>Web Penetration Testing Crash Course, Orange Digital Center</b><span class="d">28 hours covering reconnaissance, injection, authentication weaknesses, broken access control and client-side attacks. Grade 90%.</span></span></div>
+      <div class="log-row"><span class="t">02/2026</span><span class="tag">LAB</span><span><b>Cyber Security (SOC) training, Instant Software Solutions</b><span class="d">One month, grade A. Built the Wazuh incident response lab.</span></span></div>
+      <div class="log-row"><span class="t">07/2025 - 08/2025</span><span class="tag win">1ST PLACE</span><span><b>IT department training, GUPCO</b><span class="d">Network and information security in a real company environment. Won first place with my team in the cybersecurity simulation.</span></span></div>
+      <div class="log-row"><span class="t">06/2025 - 12/2025</span><span class="tag">CERT</span><span><b>Cyber Security Diploma, Instant Software Solutions</b><span class="d">150 hours covering SOC operations, alert monitoring and the basics of incident response.</span></span></div>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="sec-head">
+      <h2>Certifications</h2>
+      <p>Issued by the training providers listed.</p>
+    </div>
+    <div class="certs">
+      <div class="cert"><b>SOC Analyst</b><span>NTI Cybersecurity Academy, Undergraduate Level, 2026</span></div>
+      <div class="cert"><b>Cyber Security Diploma, 150 hours</b><span>Instant Software Solutions, 11/2025</span></div>
+      <div class="cert"><b>Cyber Security (SOC), 1 month, grade A</b><span>Instant Software Solutions, 02/2026</span></div>
+      <div class="cert"><b>eCIR Prep</b><span>NetRiders Academy, 2026</span></div>
+      <div class="cert"><b>eCIRv2</b><span>NetRiders Academy, 2026</span></div>
+      <div class="cert"><b>Penetration Testing Web Crash Course, 90%</b><span>Orange Digital Center, 02/2026</span></div>
+      <div class="cert"><b>IT Department Training</b><span>Gulf of Suez Petroleum Company, 2025</span></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="two">
+      <div>
+        <h3>Education</h3>
+        <p><b>October 6 University</b></p>
+        <p class="muted">B.Sc. Computer Science, Department of Information Systems</p>
+        <p class="muted mono" style="font-size:0.8125rem">09/2023 - 09/2027</p>
+      </div>
+      <div>
+        <h3>Languages</h3>
+        <p><b>Arabic</b> <span class="muted">Native</span></p>
+        <p><b>English</b> <span class="muted">Intermediate</span></p>
+      </div>
+      <div>
+        <h3>Practice platforms</h3>
+        <p>TryHackMe and CyberDefenders labs, focused on real attack scenarios and how to detect them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2>Contact</h2>
+      <p>Hiring for a SOC or blue team role, or need help with a SIEM lab? Send me an email.</p>
+      <div class="mail-row">
+        <span class="mail" id="mail">mohamed23013308@gmail.com</span>
+        <button class="btn" id="copy" type="button">Copy email</button>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+      <p class="mono" style="font-size:0.875rem">Giza, Egypt</p>
+    </div>
+    <footer>Mohamed Salah Metwally, Junior SOC Analyst</footer>
+  </section>
+</main>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var status = document.getElementById('status');
+  var mail = document.getElementById('mail');
+  function select() {
+    var r = document.createRange();
+    r.selectNodeContents(mail);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    var text = mail.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        status.textContent = 'Email copied.';
+      }, function () {
+        select();
+        status.textContent = 'Email selected. Press copy on your device.';
+      });
+    } else {
+      select();
+      status.textContent = 'Email selected. Press copy on your device.';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
